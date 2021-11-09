@@ -1,9 +1,8 @@
 import http from "./httpService";
-import { veedUrl } from "../config.json";
 import auth from './authService';
 
 import authService from "./authService";
-const apiEndpoint = veedUrl + "/games/";
+const apiEndpoint = http.veedUrl + "games/";
 
 export function saveDeal(hands, auction, player) {
   const access = auth.getAccessKey();

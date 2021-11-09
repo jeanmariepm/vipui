@@ -1,11 +1,11 @@
 import jwtDecode from "jwt-decode";
 import http from "./httpService";
-import { veedUrl } from "../config.json";
 
-const apiEndpoint = veedUrl + "/auth/";
+const apiEndpoint = http.veedUrl + "auth/";
 const veedKey = "veed";
 
 export async function login(username, password) {
+  console.log('logging in:', apiEndpoint, username)
   const { data: jwt } = await http.post(apiEndpoint + 'jwt/create/', { username, password });
   localStorage.setItem(veedKey,
     JSON.stringify({

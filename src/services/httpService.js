@@ -2,6 +2,7 @@ import axios from "axios";
 import logger from "./logService";
 import { toast } from "react-toastify";
 
+const veedUrl = process.env.REACT_APP_VIP_URL
 axios.interceptors.response.use(null, error => {
   const expectedError =
     error.response &&
@@ -25,5 +26,6 @@ export default {
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
+  veedUrl,
   setJwt
 };
