@@ -11,3 +11,7 @@ export function register(user) {
     username: user.name
   });
 }
+
+export default {
+  register
+}

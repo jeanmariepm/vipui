@@ -6,6 +6,7 @@ import BidBox from "./bidBox";
 import Agent from "./agent";
 import DealControl from "./dealControl";
 import bridgeService from "../../services/bridgeService";
+import authService from "../../services/authService";
 //import Login from "../nav/login";
 
 const playerNames = { 0: "West", 1: "North", 2: "East", 3: "South" };
@@ -51,7 +52,8 @@ class Bridge extends Component {
   saveDeal = async () => {
     const hands = JSON.stringify(this.deal.hands);
     const auction = JSON.stringify(this.state.bids);
-    await bridgeService.saveDeal(hands, auction);
+    const user_id = authService.getCurrentUserId();
+    await bridgeService.saveDeal(hands, auction, user_id);
   };
 
   getGoingBid = () => {

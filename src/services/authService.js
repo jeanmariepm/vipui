@@ -24,7 +24,8 @@ export function logout() {
 
 export function getCurrentUserId() {
   const { access } = JSON.parse(localStorage.getItem(veedKey));
-  return jwtDecode(access).uid;
+  console.log(jwtDecode(access));
+  return jwtDecode(access).user_id;
 }
 export function getCurrentUser() {
   try {
@@ -39,19 +40,19 @@ export function getCurrentUser() {
   }
 }
 
-export function getAccessKey() {
+/* export function getAccessKey() {
   const { access } = JSON.parse(localStorage.getItem(veedKey));
   if (access && Date.now() < 1000 * jwtDecode(access).exp) {
     return access;
   }
   return null;
 }
-
+ */
 export default {
   login,
   loginWithJwt,
   logout,
   getCurrentUser,
   getCurrentUserId,
-  getAccessKey
+  //getAccessKey
 };

@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
-import Home from "./components/home";
+import Home from './components/nav/home'
 import Deals from "./components/bridge/deals";
 import Bridge from './components/bridge/bridge'
 import TicTacToe from "./components/ttt/tictactoe";
-import NotFound from "./components/notFound";
-import NavBar from "./components/navBar";
-import LoginForm from "./components/loginForm";
-import RegisterForm from "./components/registerForm";
-import Logout from "./components/logout";
+import NotFound from "./components/nav/notFound";
+import NavBar from "./components/nav/navBar";
+import LoginForm from "./components/nav/loginForm";
+import RegisterForm from "./components/nav/registerForm";
+import Logout from "./components/nav/logout";
 import ProtectedRoute from "./components/common/protectedRoute";
 import auth from "./services/authService";
 import "./App.css";

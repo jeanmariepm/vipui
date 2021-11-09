@@ -4,36 +4,39 @@ import { toast } from "react-toastify";
 import DealsTable from "./dealsTable";
 import ListGroup from "../common/listGroup";
 import Pagination from "../common/pagination";
-import {
-  getDeals,
-  deleteDeal,
-  createPlayer,
-} from "../../services/bridgeService";
+import bridgeService from "../../services/bridgeService";
 import { getUsers } from "../../services/userService";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
-import SearchBox from "../searchBox";
+import SearchBox from "../common/searchBox";
 
 class Deals extends Component {
   state = {
     deals: [],
-    users: [],
+    allPlayers: [],
     currentPage: 1,
     pageSize: 4,
     searchQuery: "",
     selectedUser: null,
     sortColumn: { path: "id", order: "asc" },
   };
+  componentDidMount() {
+    this.loadDeals();
+  }
+  loadDeals = async () => {
+    let allPlayers, deals;
+    //bridgeService.createPlayer(); // ignore duplicate error for now
+    await bridgeService.getPlayers((data) => {
+      allPlayers = [{ id: "", username: "All Players" }, ...data];
 
-  /*   async componentDidMount() {
-    console.log("Deals mounted. Getting data ...");
-    await createPlayer(); // ignore duplicate error for now
-    const data = getUsers();
-    const users = [{ _id: "", name: "All Users" }, ...data];
-    await getDeals((deals) => {
-      this.setState({ deals, users });
+      console.log("All Players:", allPlayers);
     });
-  } */
+    await bridgeService.getDeals((data) => {
+      deals = data;
+      console.log("All deals:", deals);
+    });
+    this.setState({ deals, allPlayers });
+  };
 
   handleDelete = async (deal) => {
     const originalDeals = this.state.deals;
@@ -41,7 +44,7 @@ class Deals extends Component {
     this.setState({ deals });
 
     try {
-      await deleteDeal(deal._id);
+      await bridgeService.deleteDeal(deal._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
         toast.error("This deal has already been deleted.");
@@ -87,7 +90,7 @@ class Deals extends Component {
     let filtered = allDeals;
     if (searchQuery)
       filtered = allDeals.filter((m) =>
-        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.auction.toLowerCase().includes(searchQuery.toLowerCase())
       );
     else if (selectedUser && selectedUser._id)
       filtered = allDeals.filter((m) => m.user._id === selectedUser._id);
@@ -110,7 +113,7 @@ class Deals extends Component {
       console.log("Deals: None to display");
       return <p>There are no deals in the database.</p>;
     } else {
-      console.log(`Deals: {count} to display`);
+      console.log(`Deals: ${count} to display`);
     }
     const { totalCount, data: deals } = this.getPagedData();
 
@@ -118,13 +121,15 @@ class Deals extends Component {
       <div className="row">
         <div className="col-3">
           <ListGroup
-            items={this.state.users}
+            items={this.state.allPlayers}
+            textProperty="username"
+            valueProperty="id"
             selectedItem={this.state.selectedUser}
             onItemSelect={this.handleUserSelect}
           />
         </div>
         <div className="col">
-          {user && (
+          {/*           {user && (
             <Link
               to="/deals/new"
               className="btn btn-primary"
@@ -132,7 +137,7 @@ class Deals extends Component {
             >
               New Deal
             </Link>
-          )}
+          )} */}
           <p>Showing {totalCount} deals in the database.</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <DealsTable
