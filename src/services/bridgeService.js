@@ -5,11 +5,11 @@ import authService from "./authService";
 const apiEndpoint = http.veedUrl + "games/";
 
 export function saveDeal(hands, auction, player) {
-  const access = auth.getAccessKey();
+  //const access = auth.getAccessKey();
   console.log('Saving deal:', player);
   return http.post(apiEndpoint + 'deals/',
     { hands, auction, player },
-    { headers: { Authorization: "JWT " + access }, }
+    //{ headers: { Authorization: "JWT " + access }, }
   );
 }
 
@@ -31,19 +31,19 @@ export async function getDeals(callback) {
 export async function deleteDeal(deal) {
   console.log('deleeDeal TBD')
   try {
-    const access = auth.getAccessKey();
+    //const access = auth.getAccessKey();
 
     const { data: result } = await http.get(
       apiEndpoint + 'deals/',
       {},
-      { headers: { Authorization: "JWT " + access }, }
+      //{ headers: { Authorization: "JWT " + access }, }
     );
   } catch (ex) {
   }
 }
 export async function createPlayer() {
   try {
-    const access = auth.getAccessKey();
+    // const access = auth.getAccessKey();
     const user_id = auth.getCurrentUserId();
     const { data: result } = await http.post(
       apiEndpoint + 'players/',
