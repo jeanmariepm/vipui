@@ -26,11 +26,17 @@ const Home = ({ user }) => {
         bidding and get feedback from an AI
       </div>
       <div className="alert alert-dark" role="alert">
-        This site is built with Django and React. <br />
+        This site is built with React. <br />
         It is the developer's playground for experimentation. <br />
         You are welcome to access
-        <a href="https://github.com/jeanmariepm/veed.git"> the source code</a>
+        <a href="https://github.com/jeanmariepm/vipui.git"> the source code</a>
       </div>
+			<div className="alert alert-dark" role="alert">
+				This site uses anAPI service built with Django Rest Framework. <br />
+				You are welcome to access
+				<a href="https://github.com/jeanmariepm/vipapi.git"> the source code</a>
+			</div>
+
     </React.Fragment>
   );
 };

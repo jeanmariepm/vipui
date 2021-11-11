@@ -1,62 +1,54 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 const NavBar = ({ user }) => {
+  const loggedIn = user !== null;
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/">
-        Veed
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/home">
-            Home
-          </NavLink>
-          {user && (
-            <NavLink className="nav-item nav-link" to="/deals">
-              View Deals
-            </NavLink>
-          )}
-          <NavLink className="nav-item nav-link" to="/bridge">
-            Start Deal
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/tictactoe">
-            TicTacToe
-          </NavLink>
-          {!user && (
-            <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/login">
-                Login
-              </NavLink>
-              <NavLink className="nav-item nav-link" to="/register">
-                Register
-              </NavLink>
-            </React.Fragment>
-          )}
-          {user && (
-            <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/profile">
-                {user.name}
-              </NavLink>
-              <NavLink className="nav-item nav-link" to="/logout">
-                Logout
-              </NavLink>
-            </React.Fragment>
-          )}
-        </div>
-      </div>
-    </nav>
+    <Navbar>
+      <Nav.Item>
+        <Nav.Link className="navbar-brand" disabled>
+          VipVeed
+        </Nav.Link>
+      </Nav.Item>
+      <LinkContainer to="/home">
+        <Nav.Link>Home</Nav.Link>
+      </LinkContainer>
+      <NavDropdown title="Bridge" id="nav-dropdown">
+        <NavDropdown.Item>
+          <LinkContainer to="/deals">
+            <Nav.Link disabled={!loggedIn}>View Deals</Nav.Link>
+          </LinkContainer>
+        </NavDropdown.Item>
+        <LinkContainer to="/bridge">
+          <Nav.Link>Start Deal</Nav.Link>
+        </LinkContainer>
+      </NavDropdown>
+      <LinkContainer to="/tictactoe">
+        <Nav.Link>TicTacToe</Nav.Link>
+      </LinkContainer>
+      {!loggedIn && (
+        <React.Fragment>
+          <LinkContainer to="/login">
+            <Nav.Link>Login</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/register">
+            <Nav.Link>Register</Nav.Link>
+          </LinkContainer>
+        </React.Fragment>
+      )}
+      {loggedIn && (
+        <React.Fragment>
+          <LinkContainer to="/profile">
+            <Nav.Link> {user.name}</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/logout">
+            <Nav.Link>logout</Nav.Link>
+          </LinkContainer>
+        </React.Fragment>
+      )}
+    </Navbar>
   );
 };
 
