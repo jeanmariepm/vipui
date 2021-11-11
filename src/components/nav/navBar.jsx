@@ -41,10 +41,10 @@ const NavBar = ({ user }) => {
       {loggedIn && (
         <React.Fragment>
           <LinkContainer to="/profile">
-            <Nav.Link> {user.name}</Nav.Link>
+            <Nav.Link> Profile</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/logout">
-            <Nav.Link>logout</Nav.Link>
+            <Nav.Link>Logout</Nav.Link>
           </LinkContainer>
         </React.Fragment>
       )}
