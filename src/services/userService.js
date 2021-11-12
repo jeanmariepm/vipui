@@ -3,11 +3,9 @@ import auth from './authService'
 
 const apiEndpoint = http.veedUrl + "auth/users/";
 
-export function register(user) {
+export function register(email, password, username) {
   return http.post(apiEndpoint, {
-    email: user.username,
-    password: user.password,
-    username: user.name
+    email, password, username
   });
 }
 

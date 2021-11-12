@@ -3,28 +3,30 @@ import Joi from "joi-browser";
 import Form from "../common/form";
 import auth from "../../services/authService";
 import userService from "../../services/userService";
+import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
   state = {
-    data: { username: "", password: "", name: "" },
-    errors: {},
+    data: { email: "", password: "", username: "" },
+    errors: { email: "", password: "", username: "" },
   };
 
   schema = {
-    username: Joi.string().required().email().label("Username"),
-    password: Joi.string().required().min(5).label("Password"),
-    name: Joi.string().required().label("Name"),
+    email: Joi.string().required().email().label("Email"),
+    password: Joi.string().required().min(8).label("Password"),
+    username: Joi.string().required().min(6).label("Username"),
   };
 
   doSubmit = async () => {
     try {
-      const response = await userService.register(this.state.data);
-      auth.loginWithJwt(response.headers["x-auth-token"]);
+      const { email, username, password } = this.state.data;
+      let response = await userService.register(email, password, username);
+      response = auth.login(username, password);
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
+        const errors = ex.response.data;
+        console.warn(errors);
         this.setState({ errors });
       }
     }
@@ -35,9 +37,9 @@ class RegisterForm extends Form {
       <div>
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
+          {this.renderInput("email", "Email")}
           {this.renderInput("password", "Password", "password")}
-          {this.renderInput("name", "Name")}
+          {this.renderInput("username", "Username")}
           {this.renderButton("Register")}
         </form>
       </div>

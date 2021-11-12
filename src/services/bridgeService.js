@@ -1,11 +1,13 @@
 import http from "./httpService";
-import auth from './authService';
+import auth, { getCurrentUserId } from './authService';
 
 import authService from "./authService";
 const apiEndpoint = http.veedUrl + "games/";
 
-export function saveDeal(hands, auction, player) {
+export function saveDeal(hands, auction) {
   //const access = auth.getAccessKey();
+  createPlayer();
+  const player = getCurrentUserId();
   console.log('Saving deal:', player);
   return http.post(apiEndpoint + 'deals/',
     { hands, auction, player },
@@ -44,7 +46,7 @@ export async function deleteDeal(deal) {
 export async function createPlayer() {
   try {
     // const access = auth.getAccessKey();
-    const user_id = auth.getCurrentUserId();
+    const user_id = getCurrentUserId();
     const { data: result } = await http.post(
       apiEndpoint + 'players/',
       { "user": user_id },

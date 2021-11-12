@@ -30,7 +30,7 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <ToastContainer />
+        <ToastContainer position="top-right" />
         <NavBar user={user} />
         <main className="container">
           <Switch>
@@ -44,8 +44,7 @@ class App extends Component {
             <Route path="/deals" component={Deals} />
             <Route path="/bridge" component={Bridge} />
             <Route path="/tictactoe" component={TicTacToe} />
-            <Route path="/not-found" component={NotFound} />
-            <Redirect to="/not-found" />
+            <Redirect to="/home" />
           </Switch>
         </main>
       </React.Fragment>

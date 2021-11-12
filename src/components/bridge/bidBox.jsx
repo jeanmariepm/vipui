@@ -163,9 +163,9 @@ const BidBox = ({
         value={level + suit}
       >
         {bidMap[level + suit] || (
-          <h6>
+          <React.Fragment>
             {level} <SuitImage suit={suit} />
-          </h6>
+          </React.Fragment>
         )}
       </button>
     );

@@ -7,25 +7,25 @@ import auth from "../../services/authService";
 class LoginForm extends Form {
   state = {
     data: { username: "", password: "" },
-    errors: {},
+    errors: { username: "", password: "" },
   };
 
   schema = {
-    username: Joi.string().required().label("Username"),
-    password: Joi.string().required().label("Password"),
+    username: Joi.string().required().min(6).label("Username"),
+    password: Joi.string().required().min(8).label("Password"),
   };
 
   doSubmit = async () => {
     try {
       const { data } = this.state;
       await auth.login(data.username, data.password);
-
+      console.log("Logged in");
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
+      if (ex.response && ex.response.status === 401) {
         const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
+        errors.username = ex.response.data.detail;
         this.setState({ errors });
       }
     }

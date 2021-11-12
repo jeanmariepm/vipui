@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Square from "./square";
 import Game from "./game";
+import { Container } from "react-bootstrap";
 
 class TicTacToe extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class TicTacToe extends Component {
 
   renderGameScreen() {
     return (
-      <div className="App">
+      <React.Fragment>
         <div>
           <h1>Tic Tac Toe</h1>
         </div>
@@ -89,7 +90,7 @@ class TicTacToe extends Component {
             {this.renderSquare(8)}
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

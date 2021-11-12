@@ -1,6 +1,7 @@
 import React from "react";
 import UndoBid from "./undoBid";
 import auth from "../../services/authService";
+import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 
 const DealControl = ({
   undoBid,
@@ -12,27 +13,35 @@ const DealControl = ({
   const showNextPane = () => {
     const username = auth.getCurrentUser();
     return (
-      <React.Fragment>
-        {undoBid && <UndoBid onUndoBid={undoBid} />}
-        {practiceMode ? (
+      <ListGroup>
+        <ListGroupItem>
+          {undoBid && <UndoBid onUndoBid={undoBid} />}
+        </ListGroupItem>
+        {practiceMode && (
           <React.Fragment>
-            <button className="btn-primary" onClick={nextDeal}>
-              Next Deal
-            </button>
-            <button
-              className="btn-warning"
-              disabled={!username}
-              onClick={saveDeal}
-            >
-              {!username ? "Login to Save" : "Save to Review"}
-            </button>
+            <ListGroupItem>
+              <Button className="btn-primary" onClick={nextDeal}>
+                Next Deal
+              </Button>
+            </ListGroupItem>
+            <ListGroupItem>
+              {username && (
+                <Button className="btn-warning" onClick={saveDeal}>
+                  Save to Review
+                </Button>
+              )}
+              {!username && <p>Login to Save </p>}
+            </ListGroupItem>
           </React.Fragment>
-        ) : (
-          <button variant="success" size="sm" onClick={doneDeal}>
-            Done
-          </button>
         )}
-      </React.Fragment>
+        {!practiceMode && (
+          <ListGroupItem>
+            <Button className="btn-success" size="sm" onClick={doneDeal}>
+              Back to Deals
+            </Button>
+          </ListGroupItem>
+        )}
+      </ListGroup>
     );
   };
   return <React.Fragment>{showNextPane()}</React.Fragment>;

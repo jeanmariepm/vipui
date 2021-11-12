@@ -31,12 +31,11 @@ const Home = ({ user }) => {
         You are welcome to access
         <a href="https://github.com/jeanmariepm/vipui.git"> the source code</a>
       </div>
-			<div className="alert alert-dark" role="alert">
-				This site uses anAPI service built with Django Rest Framework. <br />
-				You are welcome to access
-				<a href="https://github.com/jeanmariepm/vipapi.git"> the source code</a>
-			</div>
-
+      <div className="alert alert-dark" role="alert">
+        This site uses anAPI service built with Django REST Framework. <br />
+        You are welcome to access
+        <a href="https://github.com/jeanmariepm/vipapi.git"> the source code</a>
+      </div>
     </React.Fragment>
   );
 };

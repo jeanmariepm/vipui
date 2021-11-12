@@ -50,10 +50,12 @@ class Bridge extends Component {
     this.begin = false;
   };
   saveDeal = async () => {
+    const bids = [...this.state.bids];
     const hands = JSON.stringify(this.deal.hands);
-    const auction = JSON.stringify(this.state.bids);
-    const user_id = authService.getCurrentUserId();
-    await bridgeService.saveDeal(hands, auction, user_id);
+    this.auction = JSON.stringify(bids);
+    await bridgeService.saveDeal(hands, this.auction);
+    this.auction = bids;
+    this.setState({ bids });
   };
 
   getGoingBid = () => {
