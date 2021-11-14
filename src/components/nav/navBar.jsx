@@ -16,13 +16,14 @@ const NavBar = ({ user }) => {
         <Nav.Link>Home</Nav.Link>
       </LinkContainer>
       <NavDropdown title="Bridge" id="nav-dropdown">
-        <NavDropdown.Item>
-          <LinkContainer to="/deals">
-            <Nav.Link disabled={!loggedIn}>View Deals</Nav.Link>
-          </LinkContainer>
-        </NavDropdown.Item>
         <LinkContainer to="/bridge">
           <Nav.Link>Start Deal</Nav.Link>
+        </LinkContainer>
+        <LinkContainer to="/deals">
+          <Nav.Link disabled={!loggedIn}>View Deals</Nav.Link>
+        </LinkContainer>
+        <LinkContainer disabled to="/profile">
+          <Nav.Link> Profile</Nav.Link>
         </LinkContainer>
       </NavDropdown>
       <LinkContainer to="/tictactoe">
@@ -40,9 +41,6 @@ const NavBar = ({ user }) => {
       )}
       {loggedIn && (
         <React.Fragment>
-          <LinkContainer to="/profile">
-            <Nav.Link> Profile</Nav.Link>
-          </LinkContainer>
           <LinkContainer to="/logout">
             <Nav.Link>Logout</Nav.Link>
           </LinkContainer>

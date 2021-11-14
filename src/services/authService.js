@@ -12,6 +12,7 @@ export async function login(username, password) {
   localStorage.setItem(veedKey,
     JSON.stringify({
       'access': jwt.access,
+      'refresh': jwt.refresh,
       'username': username
     }));
   console.log('logged in. currentUser is:', getCurrentUser())
@@ -19,8 +20,16 @@ export async function login(username, password) {
   return
 }
 
-export function loginWithJwt(jwt) {
-  //localStorage.setItem(tokenKey, jwt);
+async function loginWithJwt(username, refresh) {
+  console.log('logging in with jwt:', apiEndpoint, username)
+  const { data: jwt } = await http.post(apiEndpoint + 'jwt/refresh/', { refresh });
+  localStorage.setItem(veedKey,
+    JSON.stringify({
+      'access': jwt.access,
+      'refresh': jwt.refresh,
+      'username': username
+    }));
+
 }
 
 export function logout() {
@@ -33,9 +42,11 @@ export function getCurrentUserId() {
 }
 export function getCurrentUser() {
   try {
-    const { access, username } = JSON.parse(localStorage.getItem(veedKey));
+    const { access, refresh, username } = JSON.parse(localStorage.getItem(veedKey));
     if (access && Date.now() < 1000 * jwtDecode(access).exp) {
       return username;
+    } else if (refresh && Date.now() < 1000 * jwtDecode(refresh).exp) {
+      loginWithJwt(username, refresh)
     } else {
       logout()
     }
@@ -45,19 +56,23 @@ export function getCurrentUser() {
   }
 }
 
-/* export function getAccessKey() {
+export function getAccessKey() {
   const { access } = JSON.parse(localStorage.getItem(veedKey));
   if (access && Date.now() < 1000 * jwtDecode(access).exp) {
     return access;
-  }
-  return null;
+
+  } else if (refresh && Date.now() < 1000 * jwtDecode(refresh).exp) {
+    loginWithJwt(username, refresh)
+    return JSON.parse(localStorage.getItem(veedKey));
+  } else
+    return null;
 }
- */
+
 export default {
   login,
   loginWithJwt,
   logout,
   getCurrentUser,
   getCurrentUserId,
-  //getAccessKey
+  getAccessKey
 };

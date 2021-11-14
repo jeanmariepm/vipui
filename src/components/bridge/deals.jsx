@@ -119,7 +119,7 @@ class Deals extends Component {
 
     return (
       <div className="row">
-        <div className="col-3">
+        {/*         <div className="col-3">
           <ListGroup
             items={this.state.allPlayers}
             textProperty="username"
@@ -127,19 +127,11 @@ class Deals extends Component {
             selectedItem={this.state.selectedUser}
             onItemSelect={this.handleUserSelect}
           />
-        </div>
+        </div> */}
         <div className="col">
-          {/*           {user && (
-            <Link
-              to="/deals/new"
-              className="btn btn-primary"
-              style={{ marginBottom: 20 }}
-            >
-              New Deal
-            </Link>
-          )} */}
           <p>Showing {totalCount} deals in the database.</p>
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+          {/*           <SearchBox value={searchQuery} onChange={this.handleSearch} />
+           */}{" "}
           <DealsTable
             deals={deals}
             sortColumn={sortColumn}
