@@ -25,13 +25,12 @@ class Deals extends Component {
   }
   loadDeals = async () => {
     let allPlayers, deals;
-    //bridgeService.createPlayer(); // ignore duplicate error for now
-    await bridgeService.getPlayers((data) => {
+    /*     await bridgeService.getPlayers((data) => {
       allPlayers = [{ id: "", username: "All Players" }, ...data];
 
       console.log("All Players:", allPlayers);
     });
-    await bridgeService.getDeals((data) => {
+ */ await bridgeService.getDeals((data) => {
       deals = data;
       console.log("All deals:", deals);
     });

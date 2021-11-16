@@ -20,13 +20,11 @@ class App extends Component {
 
   componentDidMount() {
     const user = auth.getCurrentUser();
-    console.log("App got from getCurrentUser:", user);
     this.setState({ user });
   }
 
   render() {
     const { user } = this.state;
-    console.log("App:", user);
 
     return (
       <React.Fragment>

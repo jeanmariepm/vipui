@@ -27,7 +27,7 @@ const DealControl = ({
             <ListGroupItem>
               {username && (
                 <Button className="btn-warning" onClick={saveDeal}>
-                  Save to Review
+                  Save Deal
                 </Button>
               )}
               {!username && <p>Login to Save </p>}
@@ -37,7 +37,7 @@ const DealControl = ({
         {!practiceMode && (
           <ListGroupItem>
             <Button className="btn-success" size="sm" onClick={doneDeal}>
-              Back to Deals
+              Back
             </Button>
           </ListGroupItem>
         )}

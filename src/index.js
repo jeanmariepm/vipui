@@ -11,7 +11,8 @@ ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
       <App />
-    </BrowserRouter></StrictMode>,
+    </BrowserRouter>
+  </StrictMode>,
   document.getElementById("root")
 );
 registerServiceWorker();

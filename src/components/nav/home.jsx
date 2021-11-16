@@ -1,7 +1,6 @@
 import React from "react";
 
 const Home = ({ user }) => {
-  console.log("Home:", user);
   return (
     <React.Fragment>
       {!user ? (

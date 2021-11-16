@@ -1,9 +1,7 @@
 class Deal {
   constructor() {
     this.hands = this.shuffle();
-
     this.dealer = 3; // hard coded for now
-    // Math.floor(Math.random() * 4);
     this.vul = Math.floor(Math.random() * 4);
   }
   setHands(hands) {
