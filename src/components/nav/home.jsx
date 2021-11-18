@@ -22,7 +22,9 @@ const Home = ({ user }) => {
       )}
       <div className="alert alert-dark" role="alert">
         If you have just been introduced to the game of Bridge, you can practice
-        bidding and get feedback from an AI
+        bidding and get feedback from an AI <br />
+        If you are into stock trading, check out{" "}
+        <a href="https://vipstock.herokuapp.com/"> my stock app</a>
       </div>
       <div className="alert alert-dark" role="alert">
         This site is built with React. <br />
